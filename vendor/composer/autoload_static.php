@@ -133,6 +133,7 @@ class ComposerStaticInitc514d8f7b9fc5970bdd94287905ef584
             'Laravel\\Sail\\' => 13,
             'Laravel\\Prompts\\' => 16,
             'Laravel\\Pail\\' => 13,
+            'Laravel\\Breeze\\' => 15,
         ),
         'I' => 
         array (
@@ -437,6 +438,10 @@ class ComposerStaticInitc514d8f7b9fc5970bdd94287905ef584
         array (
             0 => __DIR__ . '/..' . '/laravel/pail/src',
         ),
+        'Laravel\\Breeze\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravel/breeze/src',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -533,7 +538,24 @@ class ComposerStaticInitc514d8f7b9fc5970bdd94287905ef584
     );
 
     public static $classMap = array (
+        'App\\Http\\Controllers\\BookingController' => __DIR__ . '/../..' . '/app/Http/Controllers/BookingController.php',
+        'App\\Http\\Controllers\\CityController' => __DIR__ . '/../..' . '/app/Http/Controllers/CityController.php',
         'App\\Http\\Controllers\\Controller' => __DIR__ . '/../..' . '/app/Http/Controllers/Controller.php',
+        'App\\Http\\Controllers\\FlightController' => __DIR__ . '/../..' . '/app/Http/Controllers/FlightController.php',
+        'App\\Http\\Controllers\\PassengerController' => __DIR__ . '/../..' . '/app/Http/Controllers/PassengerController.php',
+        'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
+        'App\\Http\\Controllers\\PlaneController' => __DIR__ . '/../..' . '/app/Http/Controllers/PlaneController.php',
+        'App\\Http\\Controllers\\SeatController' => __DIR__ . '/../..' . '/app/Http/Controllers/SeatController.php',
+        'App\\Http\\Controllers\\TicketController' => __DIR__ . '/../..' . '/app/Http/Controllers/TicketController.php',
+        'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
+        'App\\Models\\Booking' => __DIR__ . '/../..' . '/app/Models/Booking.php',
+        'App\\Models\\City' => __DIR__ . '/../..' . '/app/Models/City.php',
+        'App\\Models\\Flight' => __DIR__ . '/../..' . '/app/Models/Flight.php',
+        'App\\Models\\Passenger' => __DIR__ . '/../..' . '/app/Models/Passenger.php',
+        'App\\Models\\Payment' => __DIR__ . '/../..' . '/app/Models/Payment.php',
+        'App\\Models\\Plane' => __DIR__ . '/../..' . '/app/Models/Plane.php',
+        'App\\Models\\Seat' => __DIR__ . '/../..' . '/app/Models/Seat.php',
+        'App\\Models\\Ticket' => __DIR__ . '/../..' . '/app/Models/Ticket.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
@@ -2950,6 +2972,12 @@ class ComposerStaticInitc514d8f7b9fc5970bdd94287905ef584
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Laravel\\Breeze\\BreezeServiceProvider' => __DIR__ . '/..' . '/laravel/breeze/src/BreezeServiceProvider.php',
+        'Laravel\\Breeze\\Console\\InstallCommand' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallCommand.php',
+        'Laravel\\Breeze\\Console\\InstallsApiStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsApiStack.php',
+        'Laravel\\Breeze\\Console\\InstallsBladeStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsBladeStack.php',
+        'Laravel\\Breeze\\Console\\InstallsInertiaStacks' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsInertiaStacks.php',
+        'Laravel\\Breeze\\Console\\InstallsLivewireStack' => __DIR__ . '/..' . '/laravel/breeze/src/Console/InstallsLivewireStack.php',
         'Laravel\\Pail\\Console\\Commands\\PailCommand' => __DIR__ . '/..' . '/laravel/pail/src/Console/Commands/PailCommand.php',
         'Laravel\\Pail\\Contracts\\Printer' => __DIR__ . '/..' . '/laravel/pail/src/Contracts/Printer.php',
         'Laravel\\Pail\\File' => __DIR__ . '/..' . '/laravel/pail/src/File.php',
