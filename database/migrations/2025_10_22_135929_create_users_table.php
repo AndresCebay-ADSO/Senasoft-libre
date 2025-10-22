@@ -9,15 +9,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id(); // PK
-            $table->string('name',50); 
+            $table->id(); 
+            $table->string('name', 50);
             $table->string('lastname', 50);
-            $table->enum('doc_type',['C.C', 'C.E', 'T.I']);
+
+            $table->enum('doc_type', ['C.C', 'C.E', 'T.I']);
             $table->string('identity', 20)->unique();
+
             $table->string('email', 70)->unique();
-            $table->string('password', 70);
-            $table->enum('role',['admin', 'passenger'])->default('passenger'); 
-            $table->rememberToken();    
+            $table->timestamp('email_verified_at')->nullable();
+
+            $table->string('password');
+
+            $table->enum('role', ['admin', 'passenger'])->default('passenger');
+
+            $table->rememberToken();
             $table->timestamps();
         });
     }
