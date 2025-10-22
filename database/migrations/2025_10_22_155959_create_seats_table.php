@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
-            $table->foreingId('plane_id')->constrained();
+            $table->foreignId('plane_id')->constrained();
             $table->enum('class',['business', 'plus', 'economic'])->default('economic');
             $table->string('code', 5);
             //esto es para que no suceda que el codigo del asiento se repita 

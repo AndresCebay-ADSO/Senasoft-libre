@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('passengers', function (Blueprint $table) {
             $table->id();
-            $table->foreingId('booking_id')->constrained()-onDelete('cascade'); // En caso de que la reserva se borre, se borra el pasajero
+            $table->foreignId('booking_id')->constrained()->onDelete('cascade'); // En caso de que la reserva se borre, se borra el pasajero
             $table->string('names');
             $table->string('lastname');
             $table->date('birth_date');

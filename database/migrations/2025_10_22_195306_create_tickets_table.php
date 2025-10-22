@@ -21,7 +21,7 @@ return new class extends Migration
             $table->enum('status', ['emitted', 'checked_in', 'used', 'canceled'])->default('emitted');
             
             // Evitaremos la doble venta de asiento para un vuelo
-            $table->unique(['vuelo_id', 'asiento_id']);
+            $table->unique(['flight_id', 'booking_id']);
             
             $table->timestamps();
         });

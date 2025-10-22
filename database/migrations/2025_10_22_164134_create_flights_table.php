@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
             $table->string('identifier', 50)->unique();
-            $table->foreingId('origin_city_id')->constrained('cities');
-            $table->foreingId('destination_city_id')->constrained('cities');
+            $table->foreignId('origin_city_id')->constrained('cities');
+            $table->foreignId('destination_city_id')->constrained('cities');
             $table->datetime('departure');
             $table->datetime('arrival');
             $table->enum('status', ['pendiente', 'cancelado', 'programado', 'despegado', 'finalizado'])->default('pendiente');
