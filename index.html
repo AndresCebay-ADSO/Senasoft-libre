@@ -1,0 +1,340 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Booking-plane • Interfaces</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --seat: #e5e7eb; --seat-occupied:#ef4444; --seat-selected:#22c55e; --seat-blocked:#9ca3af; }
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; }
+    /* Estilos para “asientos” (checkboxes bonitos) */
+    .seat {
+      inline-size: 36px; block-size: 36px; border-radius: .5rem;
+      display:grid; place-items:center; cursor:pointer;
+      border:2px solid #11182720; background:var(--seat);
+      transition: transform .08s ease, box-shadow .08s ease;
+    }
+    .seat[data-state="occupied"] { background:var(--seat-occupied); color:white; cursor:not-allowed; }
+    .seat[data-state="blocked"]  { background:var(--seat-blocked);  color:white; cursor:not-allowed; }
+    .seat[data-state="selected"] { background:var(--seat-selected); color:white; }
+    .seat:active { transform: scale(.96); }
+    .seat input { display:none; }
+  </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+  <!-- NAV -->
+  <header class="bg-white border-b sticky top-0 z-20">
+    <nav class="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <div class="h-9 w-9 rounded-xl bg-indigo-600 text-white grid place-items-center font-bold">✈</div>
+        <span class="font-semibold text-lg">logo pagina</span>
+      </div>
+      <ul class="flex items-center gap-8 font-medium">
+        <li><a class="hover:text-indigo-600" href="#">vuelos</a></li>
+        <li><a class="hover:text-indigo-600" href="#">tu tiquete</a></li>
+      </ul>
+      <button class="rounded-xl bg-indigo-600 text-white px-3 py-2 text-sm">Iniciar sesión</button>
+    </nav>
+  </header>
+
+  <main class="mx-auto max-w-6xl px-4 py-8 space-y-10">
+    <!-- BUSCADOR -->
+    <section class="bg-white rounded-2xl shadow-sm border p-5">
+      <div class="flex items-center justify-between">
+        <h2 class="font-semibold text-lg">buscar vuelos</h2>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-gray-600">ida y vuelta</span>
+          <label class="inline-flex items-center cursor-pointer">
+            <input id="idaVuelta" type="checkbox" class="sr-only peer" checked>
+            <div class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-indigo-600 transition"></div>
+            <span class="ml-2 text-sm">ida</span>
+          </label>
+        </div>
+      </div>
+
+      <form class="grid grid-cols-1 md:grid-cols-6 gap-3 mt-4">
+        <input class="md:col-span-1 rounded-xl border px-3 py-2" placeholder="origen" />
+        <input class="md:col-span-1 rounded-xl border px-3 py-2" placeholder="destino" />
+        <input class="md:col-span-1 rounded-xl border px-3 py-2" type="date" placeholder="ida" />
+        <input class="md:col-span-1 rounded-xl border px-3 py-2" type="date" placeholder="vuelta" id="vueltaInput" />
+        <div class="md:col-span-1 flex rounded-xl border overflow-hidden">
+          <input class="w-full px-3 py-2 outline-none" type="number" min="1" value="1" aria-label="N. personas">
+          <span class="px-3 py-2 bg-gray-100 text-sm grid place-items-center border-l">N. personas</span>
+        </div>
+        <button type="button" class="md:col-span-1 rounded-xl bg-indigo-600 text-white px-4 py-2">buscar</button>
+      </form>
+    </section>
+
+    <!-- VUELOS ACTIVOS -->
+    <section class="bg-white rounded-2xl shadow-sm border p-5">
+      <h3 class="font-semibold text-lg mb-4">vuelos activos</h3>
+      <div class="space-y-3">
+        <!-- Fila -->
+        <div class="rounded-2xl border px-4 py-3 flex flex-wrap items-center gap-3">
+          <span class="w-6 h-6 rounded-full bg-gray-200 grid place-items-center">✈</span>
+          <span class="text-sm font-medium">1</span>
+          <input class="rounded-lg border px-3 py-1" placeholder="origen">
+          <input class="rounded-lg border px-3 py-1" placeholder="destino">
+          <input class="rounded-lg border px-3 py-1" type="date" placeholder="fecha">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">hora</span>
+            <input class="rounded-lg border px-3 py-1 w-28" type="time" value="09:00">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm">capacidad</span>
+            <input class="rounded-lg border px-3 py-1 w-20" type="number" min="1" value="3">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm">precio</span>
+            <div class="px-2 py-1 rounded-lg bg-gray-100 text-sm">$</div>
+          </div>
+          <button class="ml-auto rounded-xl bg-emerald-600 text-white px-4 py-2">reservar</button>
+        </div>
+
+        <!-- Copias simples para simular 2 y 3 -->
+        <div class="rounded-2xl border px-4 py-3 flex flex-wrap items-center gap-3">
+          <span class="w-6 h-6 rounded-full bg-gray-200 grid place-items-center">✈</span>
+          <span class="text-sm font-medium">2</span>
+          <input class="rounded-lg border px-3 py-1" placeholder="origen">
+          <input class="rounded-lg border px-3 py-1" placeholder="destino">
+          <input class="rounded-lg border px-3 py-1" type="date">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">hora</span>
+            <input class="rounded-lg border px-3 py-1 w-28" type="time" value="12:30">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm">capacidad</span>
+            <input class="rounded-lg border px-3 py-1 w-20" type="number" min="1" value="3">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm">precio</span>
+            <div class="px-2 py-1 rounded-lg bg-gray-100 text-sm">$</div>
+          </div>
+          <button class="ml-auto rounded-xl bg-emerald-600 text-white px-4 py-2">reservar</button>
+        </div>
+
+        <div class="rounded-2xl border px-4 py-3 flex flex-wrap items-center gap-3">
+          <span class="w-6 h-6 rounded-full bg-gray-200 grid place-items-center">✈</span>
+          <span class="text-sm font-medium">3</span>
+          <input class="rounded-lg border px-3 py-1" placeholder="origen">
+          <input class="rounded-lg border px-3 py-1" placeholder="destino">
+          <input class="rounded-lg border px-3 py-1" type="date">
+          <div class="flex items-center gap-2">
+            <span class="text-sm">hora</span>
+            <input class="rounded-lg border px-3 py-1 w-28" type="time" value="18:45">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm">capacidad</span>
+            <input class="rounded-lg border px-3 py-1 w-20" type="number" min="1" value="3">
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="text-sm">precio</span>
+            <div class="px-2 py-1 rounded-lg bg-gray-100 text-sm">$</div>
+          </div>
+          <button class="ml-auto rounded-xl bg-emerald-600 text-white px-4 py-2">reservar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECTOR DE ASIENTOS -->
+    <section class="bg-white rounded-2xl shadow-sm border p-5">
+      <h3 class="font-semibold text-lg mb-4">selecciona tus asientos</h3>
+
+      <div class="grid grid-cols-5 gap-3 place-items-center">
+        <!-- 25 asientos de ejemplo -->
+        <!-- data-state: empty | occupied | blocked | selected -->
+        <!-- marca algunos ocupados/bloqueados para simular -->
+        <button class="seat" data-state="occupied" aria-disabled="true">✖</button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="selected">👤</button>
+        <button class="seat" data-state="empty"></button>
+
+        <button class="seat" data-state="blocked">◌</button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="occupied" aria-disabled="true">✖</button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="blocked">◌</button>
+
+        <button class="seat" data-state="occupied" aria-disabled="true">✖</button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+        <button class="seat" data-state="empty"></button>
+      </div>
+
+      <!-- Leyenda -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6 text-sm">
+        <div class="flex items-center gap-2"><span class="inline-block w-5 h-5 rounded bg-gray-200 border"></span> asiento vacío</div>
+        <div class="flex items-center gap-2"><span class="inline-block w-5 h-5 rounded" style="background:var(--seat-selected)"></span> asiento elegido</div>
+        <div class="flex items-center gap-2"><span class="inline-block w-5 h-5 rounded" style="background:var(--seat-occupied)"></span> asiento ocupado</div>
+        <div class="flex items-center gap-2"><span class="inline-block w-5 h-5 rounded" style="background:var(--seat-blocked)"></span> asiento bloqueado</div>
+      </div>
+
+      <p id="counter" class="mt-4 text-sm text-gray-600">máximo <b>5</b> personas</p>
+
+      <button class="mt-3 w-full rounded-xl bg-indigo-600 text-white py-2">confirmar asiento</button>
+    </section>
+
+    <!-- FORMULARIOS -->
+    <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Datos del Pasajero -->
+      <div class="bg-white rounded-2xl shadow-sm border p-5">
+        <div class="flex items-center justify-between mb-4">
+          <h3 class="font-semibold">DATOS DEL PASAJERO</h3>
+          <span class="text-sm text-gray-500">1/5</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-sm">primer apellido</label>
+            <input class="mt-1 w-full rounded-xl border px-3 py-2"/>
+          </div>
+          <div>
+            <label class="text-sm">Tipo documento</label>
+            <select class="mt-1 w-full rounded-xl border px-3 py-2">
+              <option>CC</option><option>CE</option><option>TI</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-sm">segundo apellido</label>
+            <input class="mt-1 w-full rounded-xl border px-3 py-2"/>
+          </div>
+          <div>
+            <label class="text-sm">Numero de documento</label>
+            <input class="mt-1 w-full rounded-xl border px-3 py-2"/>
+          </div>
+
+          <div>
+            <label class="text-sm">nombre(s)</label>
+            <input class="mt-1 w-full rounded-xl border px-3 py-2"/>
+          </div>
+          <div>
+            <label class="text-sm">celular</label>
+            <input class="mt-1 w-full rounded-xl border px-3 py-2" type="tel"/>
+          </div>
+
+          <div>
+            <label class="text-sm">fecha nacimiento</label>
+            <div class="mt-1 flex gap-2">
+              <input class="w-full rounded-xl border px-3 py-2" type="date"/>
+            </div>
+          </div>
+          <div>
+            <label class="text-sm">correo</label>
+            <input class="mt-1 w-full rounded-xl border px-3 py-2" type="email"/>
+          </div>
+
+          <div>
+            <label class="text-sm">genero</label>
+            <select class="mt-1 w-full rounded-xl border px-3 py-2">
+              <option>Femenino</option><option>Masculino</option><option>Otro</option>
+            </select>
+          </div>
+          <div class="flex items-end">
+            <button class="w-full rounded-xl bg-emerald-600 text-white py-2">enviar datos del pasajero</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Datos del Pagante -->
+      <div class="bg-white rounded-2xl shadow-sm border p-5">
+        <h3 class="font-semibold mb-4">DATOS DEL PAGANTE</h3>
+
+        <div class="space-y-4">
+          <div>
+            <label class="text-sm">Nombre completo</label>
+            <input class="mt-1 w-full rounded-xl border px-3 py-2"/>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="text-sm">tipo y numero de documento</label>
+              <select class="mt-1 w-full rounded-xl border px-3 py-2">
+                <option>CC</option><option>CE</option><option>TI</option>
+              </select>
+            </div>
+            <div class="col-span-2 flex items-end">
+              <input class="w-full rounded-xl border px-3 py-2" placeholder="número"/>
+            </div>
+          </div>
+
+          <div>
+            <label class="text-sm">celular</label>
+            <input class="mt-1 w-full rounded-xl border px-3 py-2" type="tel"/>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <div class="col-span-2">
+              <label class="text-sm">opciones de pago</label>
+              <select class="mt-1 w-full rounded-xl border px-3 py-2">
+                <option>Tarjeta de débito</option>
+                <option>Tarjeta de crédito</option>
+                <option>PSE / Transferencia</option>
+              </select>
+            </div>
+            <div class="flex items-end">
+              <button class="w-full rounded-xl bg-indigo-600 text-white py-2">pagar</button>
+            </div>
+          </div>
+
+          <label class="inline-flex items-center gap-2 text-sm">
+            <input type="checkbox" class="rounded border-gray-300">
+            <span>términos y condiciones</span>
+          </label>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- LÓGICA MÍNIMA: toggle ida/vuelta y selección de asientos (máx 5) -->
+  <script>
+    // Mostrar/ocultar "vuelta" si el switch está apagado
+    const idaVuelta = document.getElementById('idaVuelta');
+    const vueltaInput = document.getElementById('vueltaInput');
+    function syncVuelta() { vueltaInput.disabled = !idaVuelta.checked; vueltaInput.classList.toggle('opacity-50', vueltaInput.disabled); }
+    idaVuelta.addEventListener('change', syncVuelta); syncVuelta();
+
+    // Selección de asientos
+    const MAX = 5;
+    const info = document.getElementById('counter');
+    const seats = Array.from(document.querySelectorAll('.seat'));
+    function countSelected(){return seats.filter(s=>s.dataset.state==='selected').length}
+    function updateCounter(){ info.innerHTML = `máximo <b>${MAX}</b> personas — seleccionados: <b>${countSelected()}</b>`; }
+    updateCounter();
+
+    seats.forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const state = btn.dataset.state || 'empty';
+        if(state==='occupied' || state==='blocked') return;
+
+        if(state==='selected'){ btn.dataset.state='empty'; updateCounter(); return; }
+
+        // seleccionar
+        if(countSelected()>=MAX){ btn.animate([{transform:'translateY(0)'},{transform:'translateY(-2px)'}],{duration:120}); return; }
+        btn.dataset.state='selected';
+        btn.textContent='👤';
+        updateCounter();
+      });
+    });
+  </script>
+</body>
+</html>
